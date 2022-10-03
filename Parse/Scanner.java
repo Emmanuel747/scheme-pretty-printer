@@ -86,7 +86,17 @@ public class Scanner {
 			// String constants
 			else if (ch == '"') {
 				// TODO: Scan a string into the buffer variable buf
-				return new StrToken(buf.toString());
+        System.out.println("heelo");
+        int i = 1;
+        ch = in.read();
+        while (ch != '"') {
+          buf[i]=(byte)ch;
+          System.out.println(buf[i]);
+          ch = in.read();
+          i++;
+        }
+        String s = new String(buf);
+				return new StrToken(s);
 			}
 
 			// Integer constants
