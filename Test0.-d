@@ -1,0 +1,9 @@
+-simple addition function
+(+ 2 3)
+
+-test newline and comments
+((lambda (x1 x2) (* (- x1 x2) (- x1 x2)))2 - 5)   ; <--- note actuals here
+
+-test comments
+(;(lambda (x1 x2) (* (- x1 x2) (- x1 x2)))2 - 5)   ; <--- note actuals here
+
