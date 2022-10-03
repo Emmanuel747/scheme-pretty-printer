@@ -35,7 +35,7 @@ public class Scanner {
 
 			// TODO: Skip white space and comments
       // Working state ~eman
-      while (ch > 0 && ch == 32) {
+      while (ch > 0 && ch == 32 || ch == '\t') {
         ch = in.read();
       }
       if (ch == ';' ) {
@@ -96,6 +96,7 @@ public class Scanner {
           i++;
         }
         String s = new String(buf);
+        System.out.println("Length is -> " + s.length());
 				return new StrToken(s);
 			}
 
