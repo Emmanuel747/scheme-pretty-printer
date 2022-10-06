@@ -86,7 +86,6 @@ public class Scanner {
 			// String constants
 			else if (ch == '"') {
 				// TODO: Scan a string into the buffer variable buf
-        System.out.println("heelo");
         int i = 1;
         ch = in.read();
         while (ch != '"') {
@@ -96,17 +95,19 @@ public class Scanner {
           i++;
         }
         String s = new String(buf);
+        buf = new byte[BUFSIZE];
         System.out.println("Length is -> " + s.length());
 				return new StrToken(s);
 			}
 
 			// Integer constants
 			else if (ch >= '0' && ch <= '9') {
+        // TODO: scan the number and convert it to an integer
 				int i = ch - '0';
-				// TODO: scan the number and convert it to an integer
-
+        ch = in.read();
 				// Put the character after the integer back into the input
-				// in.unread(ch);
+        if (!(ch >= '0' && ch <= '9'))
+				  in.unread(ch);
 				return new IntToken(i);
 			}
 
@@ -114,6 +115,23 @@ public class Scanner {
 			else if (ch >= 'A' && ch <= 'Z'
 				/* or ch is some other valid first character for an identifier */) {
 				// TODO: scan an identifier into the buffer variable buf
+        String[] schemeIdentifiers = {
+            "quote", "lambda", "if", "set!", "begin", "cond", "and", "or",
+            "case", "let", "let*", "letrec", "do", "delay", "quasiquote"
+        };
+          for (int i = 0; i < schemeIdentifiers.length; i++) {
+            char c = schemeIdentifiers[i].charAt(0);
+            if (ch == c)
+              while (ch != schemeIdentifiers[i].charAt(schemeIdentifiers[i].length()))
+              buf[i] = (byte)c;
+            }
+            System.out.println(buf[i]);
+            ch = in.read();
+            i++;
+          }
+          String s = new String(buf);
+        }
+
 
 				// Put the character after the identifier back into the input
 				// in.unread(ch);

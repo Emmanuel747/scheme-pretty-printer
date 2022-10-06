@@ -60,6 +60,7 @@ public class Node {
     // in class Cons. After setCar, a Cons cell needs to be `parsed' again
     // using parseList.
 
+    // get name as well
     public Node getCar() {
         return null;
     }
