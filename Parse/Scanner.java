@@ -5,6 +5,9 @@ package Parse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 import Tokens.Token;
 import Tokens.TokenType;
@@ -35,7 +38,7 @@ public class Scanner {
 
 			// TODO: Skip white space and comments
       // Working state ~eman
-      while (ch > 0 && ch == 32 || ch == '\t') {
+      while (ch > 0 && ch == 32 || ch == '9') {
         ch = in.read();
       }
       if (ch == ';' ) {
@@ -60,10 +63,6 @@ public class Scanner {
 			else if (ch == '.')
 				// We ignore the special identifier `...'.
 				return new Token(TokenType.DOT);
-
-      //Operators
-      else if (ch == '+')
-        return new Token(TokenType.ADD);
 
 			// Boolean constants
 			else if (ch == '#') {
@@ -111,32 +110,30 @@ public class Scanner {
 				return new IntToken(i);
 			}
 
-			// Identifiers
-			else if (ch >= 'A' && ch <= 'Z'
-				/* or ch is some other valid first character for an identifier */) {
+      // Identifiers
+			else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') 
+              || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '>' || ch == '<' 
+              || ch == '=' || ch == ':' || ch == '@' || ch == '&' || ch == '%' || ch == '?' 
+              || ch == '~' || ch == '^' || ch == '_') 
+      {
 				// TODO: scan an identifier into the buffer variable buf
-        String[] schemeIdentifiers = {
-            "quote", "lambda", "if", "set!", "begin", "cond", "and", "or",
-            "case", "let", "let*", "letrec", "do", "delay", "quasiquote"
-        };
-          for (int i = 0; i < schemeIdentifiers.length; i++) {
-            char c = schemeIdentifiers[i].charAt(0);
-            if (ch == c)
-              while (ch != schemeIdentifiers[i].charAt(schemeIdentifiers[i].length()))
-              buf[i] = (byte)c;
-            }
-            System.out.println(buf[i]);
-            ch = in.read();
-            i++;
-          }
-          String s = new String(buf);
+        buf = new byte[BUFSIZE];
+        buf[0] = (byte)ch;
+        ch = in.read();
+        int i = 1;
+        while ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') 
+              || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '>' || ch == '<' 
+              || ch == '=' || ch == ':' || ch == '@' || ch == '&' || ch == '%' || ch == '?' 
+              || ch == '~' || ch == '^' || ch == '_') 
+        {
+          buf[i] = (byte)ch;
+          ch = in.read();
+          i++;
         }
-
-
 				// Put the character after the identifier back into the input
-				// in.unread(ch);
-
-				return new IdentToken(buf.toString());
+				in.unread(ch);
+        String please = new String(buf);
+        return new IdentToken(please);
 			}
 
 			// Illegal character
