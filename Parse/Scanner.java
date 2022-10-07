@@ -89,13 +89,11 @@ public class Scanner {
         ch = in.read();
         while (ch != '"') {
           buf[i]=(byte)ch;
-          System.out.println(buf[i]);
           ch = in.read();
           i++;
         }
         String s = new String(buf);
         buf = new byte[BUFSIZE];
-        System.out.println("Length is -> " + s.length());
 				return new StrToken(s);
 			}
 
