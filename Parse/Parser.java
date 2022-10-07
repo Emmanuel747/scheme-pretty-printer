@@ -53,26 +53,32 @@ public class Parser {
         if(token == null){
             return null;
         }
-        else if (token.getType() == TokenType.LPAREN){
+        else{
+            return parseExp(token);
+        }
+    }
+
+    private Node parseExp(Token token){
+        if (token.getType() == TokenType.LPAREN){
 			return parseRest();
+		}
+        else if (token.getType() == TokenType.IDENT){
+			return new Ident(token.getName());
+		}
+        else if (token.getType() == TokenType.QUOTE){
+			return new Cons(new Ident("quote"), new Cons(parseExp(), new Nil()));
+        }
+        else if (token.getType() == TokenType.TRUE){
+			return new BooleanLit(true);
 		}
 		else if (token.getType() == TokenType.FALSE){
 			return new BooleanLit(false);
 		}
-		else if (token.getType() == TokenType.TRUE){
-			return new BooleanLit(true);
-		}
-		else if (token.getType() == TokenType.QUOTE){
-			return new Cons(new Ident("quote"), new Cons(parseExp(), new Nil()));
-        }
 		else if (token.getType() == TokenType.INT){
 			return new IntLit(token.getIntVal());
 		}
 		else if (token.getType() == TokenType.STRING){
 			return new StrLit(token.getStrVal());
-		}
-		else if (token.getType() == TokenType.IDENT){
-			return new Ident(token.getName());
 		}
 		else{
             System.err.print("parseExp Error");
@@ -83,12 +89,16 @@ public class Parser {
     protected Node parseRest() {
         // TODO: write code for parsing rest
         Token token = scanner.getNextToken();
+        if(token == null){
+            return null;
+        }
+        else{
+            return parseRest(token);
+        }
+    }
 
-			if (token == null)
-			{
-				return null;
-			}
-			else if (token.getType() == TokenType.RPAREN)
+    private Node parseRest(Token token){
+			if (token.getType() == TokenType.RPAREN)
 			{
 				return new Nil();
 			}
@@ -100,7 +110,6 @@ public class Parser {
 			{
 				return new Cons(parseExp(), parseRest());
 			}
-
     }
 
     // TODO: Add any additional methods you might need.
