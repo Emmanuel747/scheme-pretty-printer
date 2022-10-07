@@ -1,0 +1,56 @@
+			else if (ch >= 'a' && ch <= 'z') {
+				/* or ch is some other valid first character for an identifier */
+				// TODO: scan an identifier into the buffer variable buf
+        String identifierName = "";
+        Boolean offSwitch = false;
+        // String[] schemeIdentifiers = {
+        //     "quote", "lambda", "if", "set!", "begin", "cond", "and", "or",
+        //     "case", "let", "let*", "letrec", "do", "delay", "quasiquote"
+        // };
+        String[] schemeIdentifiers = {
+          "+", "-", "*", "/", "abs", "sqrt", "=","<",
+          ">", "<=", ">=", "eqv?", "equal?", "and", "or", "not"
+        };
+
+          // for (int i = 0; i < schemeIdentifiers.length; i++) {
+          //   if (offSwitch) {
+          //     System.out.println("trying to kill loop");
+          //     break;
+          //   }
+          //   int c = schemeIdentifiers[i].charAt(0);
+            
+          //   // Can't seem to break the loop upon finding successfull match
+          //   // System.out.println("I searched for..." + ch + " && " + c);
+
+          //   // if first letter matches an identifier...
+          //   if (ch == c) {
+          //     int j = 0;
+          //     buf[j] = (byte)ch;
+          //     while ( j < schemeIdentifiers[i].length()) {
+          //       buf[j] = (byte)ch;
+          //       String s = new String(buf);
+          //       identifierName = s;
+          //       ch = in.read();
+          //       j++;
+          //     }
+          //     // String s = new String(buf);
+          //     // System.out.println("final " + s);
+
+          //     for (int k = 0; k < schemeIdentifiers.length - 1; k++ ) {
+          //       if (identifierName == schemeIdentifiers[k]) {
+          //         offSwitch = true;
+          //         in.unread(ch);
+          //         return new IdentToken(identifierName);
+          //       }
+          //     }
+          //   }
+          //   if (offSwitch) {
+          //     System.out.println("trying to kill loop");
+          //     break;
+          //   }
+          // }
+				// Put the character after the identifier back into the input
+				in.unread(ch);
+        String please = new String(buf);
+        return new IdentToken(please);
+			}
