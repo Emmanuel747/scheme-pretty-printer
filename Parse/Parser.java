@@ -36,6 +36,9 @@
 package Parse;
 
 import Tree.Node;
+import Tokens.Token;
+import Tokens.TokenType;
+import Tree.*;
 
 public class Parser {
     private Scanner scanner;
@@ -46,12 +49,58 @@ public class Parser {
 
     public Node parseExp() {
         // TODO: write code for parsing an exp
-        return null;
+        Token token = scanner.getNextToken();
+        if(token == null){
+            return null;
+        }
+        else if (token.getType() == TokenType.LPAREN){
+			return parseRest();
+		}
+		else if (token.getType() == TokenType.FALSE){
+			return new BooleanLit(false);
+		}
+		else if (token.getType() == TokenType.TRUE){
+			return new BooleanLit(true);
+		}
+		else if (token.getType() == TokenType.QUOTE){
+			return new Cons(new Ident("quote"), new Cons(parseExp(), new Nil()));
+        }
+		else if (token.getType() == TokenType.INT){
+			return new IntLit(token.getIntVal());
+		}
+		else if (token.getType() == TokenType.STRING){
+			return new StrLit(token.getStrVal());
+		}
+		else if (token.getType() == TokenType.IDENT){
+			return new Ident(token.getName());
+		}
+		else{
+            System.err.print("parseExp Error");
+			return null;
+		}
     }
 
     protected Node parseRest() {
         // TODO: write code for parsing rest
-        return null;
+        Token token = scanner.getNextToken();
+
+			if (token == null)
+			{
+				return null;
+			}
+			else if (token.getType() == TokenType.RPAREN)
+			{
+				return new Nil();
+			}
+			else if (token.getType() == TokenType.DOT)
+			{
+				return new Cons(parseExp(), parseRest());
+			}
+			else
+			{
+				return new Cons(parseExp(), parseRest());
+			}
+
     }
 
     // TODO: Add any additional methods you might need.
