@@ -19,6 +19,11 @@ public class BooleanLit extends Node {
             return falseInstance;
     }
 
+    @Override
+    public boolean isBoolean() {
+      return true;
+    }
+
     public void print(int n) {
         // There got to be a more efficient way to print n spaces.
         for (int i = 0; i < n; i++)
@@ -29,5 +34,20 @@ public class BooleanLit extends Node {
         } else {
             System.out.println("#f");
         }
+        //makes a new line at the end of the printout for testcases
+        if (n >= 0) {
+          System.out.println();
+        }
     }
+
+    public static void printBoolLit(int n) {
+      indent(n);
+      if (boolVal) {
+          System.out.print("#t");
+      }
+      else {
+          System.out.print("#f");
+      }
+      terminate(n);
+  }
 }

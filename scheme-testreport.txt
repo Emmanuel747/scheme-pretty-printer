@@ -1,0 +1,50 @@
+Running tests:
+Test0.-d: SUCCESS
+Test1: FAIL
+Printing the integer constant 42 failed.
+-----
+1c1
+< 42
+---
+> 4
+-----
+Test2: FAIL
+Printing the list '("Hello" "World!") failed.
+-----
+1d0
+< '("Hello" "World!")
+-----
+Test2 Errors:
+-----
+0a1,3
+> Exception in thread "main" java.lang.NullPointerException
+> 	at Tree.Cons.print(Cons.java:33)
+> 	at SPP.main(SPP.java:51)
+-----
+Test3: FAIL
+The factorial function failed.
+-----
+1,9d0
+< (begin
+<   (define (fac n)
+<     (if (b= n 0)
+<       1
+<       (b* n (fac (b- n 1)))
+<     )
+<   )
+<   (fac 5)
+< )
+-----
+Test3 Errors:
+-----
+0a1,4
+> Illegal input character ' '
+> Exception in thread "main" java.lang.NullPointerException
+> 	at Tree.Cons.print(Cons.java:33)
+> 	at SPP.main(SPP.java:51)
+-----
+
+1 tests succeeded
+0 tests were formatted incorrectly
+3 tests failed
+2 tests had errors

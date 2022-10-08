@@ -24,6 +24,7 @@ public class Cons extends Node {
     // object from the Special hierarchy and to leave the rest of
     // parsing up to the interpreter.
     void parseList() {
+      if (!car)
     }
 
     // TODO: Add any helper functions for parseList
@@ -36,4 +37,5 @@ public class Cons extends Node {
     public void print(int n, boolean p) {
         form.print(this, n, p);
     }
+
 }
