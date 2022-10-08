@@ -8,7 +8,7 @@ public class BooleanLit extends Node {
     private static BooleanLit trueInstance = new BooleanLit(true);
     private static BooleanLit falseInstance = new BooleanLit(false);
 
-    private BooleanLit(boolean b) {
+    public BooleanLit(boolean b) {
         boolVal = b;
     }
 

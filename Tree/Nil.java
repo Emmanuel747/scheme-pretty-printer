@@ -5,7 +5,7 @@ package Tree;
 public class Nil extends Node {
     private static Nil instance = new Nil();
 
-    private Nil() {
+    public Nil() {
     }
 
     public static Nil getInstance() {
