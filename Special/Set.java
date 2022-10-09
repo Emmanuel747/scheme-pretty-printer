@@ -6,6 +6,27 @@ import Tree.Node;
 
 public class Set extends Special {
  
-    public void print(Node t, int n, boolean p) {
+    public Set(){}
+
+    public void print(Node node, int num, boolean bool) {
+        if (bool != true){
+		    System.out.println("(");
+        }
+
+		if (node.getCar().isPair()){
+			node.getCar().print(0, false);
+        }
+		else{
+		    node.getCar().print(0, true);
+        }
+
+		System.out.println(" ");
+		Node temp = node.getCdr();
+		if (temp == null){
+			System.out.println(")");
+        }
+		else{
+			temp.print(0, true);
+        }
     }
 }
