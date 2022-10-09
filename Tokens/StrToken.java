@@ -9,7 +9,8 @@ public class StrToken extends Token {
         super(TokenType.STRING);
         strVal = s;
     }
-
+    
+    @Override
     public String getStrVal() {
         return strVal;
     }

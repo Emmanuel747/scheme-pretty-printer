@@ -10,6 +10,7 @@ public class IntToken extends Token {
         intVal = i;
     }
 
+    @Override
     public int getIntVal() {
         return intVal;
     }

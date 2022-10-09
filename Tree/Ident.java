@@ -16,10 +16,11 @@ public class Ident extends Node {
         System.out.println(name);
     }
 
+    @Override
     public String getName(){
         return name;
     }
-
+    
     public boolean isSymbol() {
         return true;
     }

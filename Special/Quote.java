@@ -9,10 +9,10 @@ public class Quote extends Special {
     public Quote(){}
 
     public void print(Node node, int num, boolean bool) {
-        System.out.println("'");
+        System.out.println("I RAN");
 		if (node.getCdr() == null){
-			System.out.println();
-        }
+			System.out.println("'");
+   }
 		else{
 		    node.getCdr().print(0, false);
         }

@@ -9,7 +9,7 @@ public class Token {
         tt = t;
     }
 
-    public final TokenType getType() {
+    public TokenType getType() {
         return tt;
     }
 
