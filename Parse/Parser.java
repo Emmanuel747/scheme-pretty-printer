@@ -47,45 +47,43 @@ public class Parser {
       scanner = s;
   }
 
-  public Node parseExp() {
-      // TODO: write code for parsing an exp
-      Token token = scanner.getNextToken();
-      if (token == null){
-          return null;
-      } else if (token.getType() == TokenType.LPAREN) {
-          return parseRest();
-      } 
-      else if (token.getType() == TokenType.IDENT) {
-        return new Ident(token.getName());
-      }
-      else if (token.getType() == TokenType.QUOTE) {
-        return new Cons(new Ident("quote"), 
-               new Cons(parseExp(), new Nil()));
-      }
-      else if (token.getType() == TokenType.TRUE) {
-        return new BooleanLit(true);
-      }
-      else if (token.getType() == TokenType.FALSE) {
-        return new BooleanLit(false);
-      }
-      else if (token.getType() == TokenType.INT) {
-        return new IntLit(token.getIntVal());
-      }
-      else if (token.getType() == TokenType.STRING) {
-        return new StrLit(token.getStrVal());
-      }
-      else if (token.getType() == TokenType.DOT) {
-        System.err.print("parseExp Error (illegal dot in expression)");
-      }
-      else if {
-        System.err.print("parseExp Error");
+  public Node parseExp(Token token) {
+    // TODO: write code for parsing an exp
+    token = scanner.getNextToken();
+    if (token == null){
         return null;
-      }
+    } else if (token.getType() == TokenType.LPAREN) {
+        return parseRest();
+    } 
+    else if (token.getType() == TokenType.IDENT) {
+      return new Ident(token.getName());
+    }
+    else if (token.getType() == TokenType.QUOTE) {
+      return new Cons(new Ident("quote"), 
+              new Cons(parseExp(), new Nil()));
+    }
+    else if (token.getType() == TokenType.TRUE) {
+      return new BooleanLit(true);
+    }
+    else if (token.getType() == TokenType.FALSE) {
+      return new BooleanLit(false);
+    }
+    else if (token.getType() == TokenType.INT) {
+      return new IntLit(token.getIntVal());
+    }
+    else if (token.getType() == TokenType.STRING) {
+      return new StrLit(token.getStrVal());
+    }
+    else if (token.getType() == TokenType.DOT) {
+      System.err.print("parseExp() Error (illegal dot in expression)");
+    }  
+    System.err.print("parseExp() Error");
+    return null;
   }
 
-  protected Node parseRest() {
+
+  private Node parseRest(Token token) {
       // TODO: write code for parsing rest
-      Token token = scanner.getNextToken();
         if (token == null) {
             System.err.println("end of file in list");
             return null;
@@ -93,66 +91,72 @@ public class Parser {
         if (token.getType() == TokenType.RPAREN) {
             return Nil.getInstance();
         }
-        final Node exp = this.parseExp(token);
+        
+        Node exp = parseExp(token);
         if (exp == null) {
-            System.err.println("end of file in list");
+            System.err.println("reached the end");
             return null;
         }
-        token = this.scanner.getNextToken();
+        token = scanner.getNextToken();
         if (token == null) {
-            System.err.println("end of file in list");
+            System.err.println("reached the end");
             return null;
         }
         Node node;
         if (token.getType() == TokenType.DOT) {
-            node = this.parseExp();
+            node = parseExp(token);
             if (node == null) {
-                System.err.println("end of file in list");
+                System.err.println("reached the end");
                 return null;
             }
-            token = this.scanner.getNextToken();
+            token = scanner.getNextToken();
             if (token == null) {
-                System.err.println("end of file in list");
+                System.err.println("reached the end");
                 return null;
             }
             if (token.getType() != TokenType.RPAREN) {
-                System.err.println("missing right parenthesis after expression");
+                System.err.println("No closing parenthesis after expression!");
                 node.print(2);
-                System.err.println("discarding input until matching right parenthesis");
+                System.err.println("ignoring input until closing parenthesis...");
             }
+
             while (token != null && token.getType() != TokenType.RPAREN) {
-                if (this.parseExp(token) == null) {
-                    return null;
+                if (parseExp(token) == null) {
+                  return null;
                 }
-                token = this.scanner.getNextToken();
+                token = scanner.getNextToken();
             }
             if (token == null) {
-                return null;
+              return null;
             }
         }
         else {
-            node = this.parseRest(token);
+            node = parseRest(token);
             if (node == null) {
                 return null;
             }
         }
         return new Cons(exp, node);
   }
-
-  private Node parseRest(Token token){
-    if (token.getType() == TokenType.RPAREN)
-    {
-      return new Nil();
-    }
-    else if (token.getType() == TokenType.DOT)
-    {
-      return new Cons(parseExp(), parseRest());
-    }
-    else
-    {
-      return new Cons(parseExp(), parseRest());
-    }
+  
+  protected Node parseRest() {
+    return parseRest(scanner.getNextToken());
   }
+  // backup code
+  // private Node parseRest(Token token){
+  //   if (token.getType() == TokenType.RPAREN)
+  //   {
+  //     return new Nil();
+  //   }
+  //   else if (token.getType() == TokenType.DOT)
+  //   {
+  //     return new Cons(parseExp(token), parseRest());
+  //   }
+  //   else
+  //   {
+  //     return new Cons(parseExp(token), parseRest());
+  //   }
+  // }
 
   // TODO: Add any additional methods you might need.
 }

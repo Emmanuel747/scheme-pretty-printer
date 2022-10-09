@@ -23,9 +23,6 @@ public class Cons extends Node {
     // parseList only look at the car for selecting the appropriate
     // object from the Special hierarchy and to leave the rest of
     // parsing up to the interpreter.
-    void parseList() {
-      if (!car)
-    }
 
     // TODO: Add any helper functions for parseList
     // to the class hierarchy as needed.

@@ -62,16 +62,16 @@ public class Node {
 
     // get name as well
     public Node getCar() {
-        return null;
+      return null;
     }
 
     public Node getCdr() {
-        return null;
+      return null;
     }
 
-    public void setCar(Node a) {
+    public void setCar(Node node) {
     }
 
-    public void setCdr(Node d) {
+    public void setCdr(Node node) {
     }
 }

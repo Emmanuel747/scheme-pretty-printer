@@ -1,7 +1,7 @@
 Running tests:
 Test0.-d: SUCCESS
 Test1: FAIL
-Printing the integer constant 42 failed.
+;;;Printing the integer constant 42 failed.
 -----
 1c1
 < 42
@@ -9,7 +9,7 @@ Printing the integer constant 42 failed.
 > 4
 -----
 Test2: FAIL
-Printing the list '("Hello" "World!") failed.
+;;;Printing the list '("Hello" "World!") failed.
 -----
 1d0
 < '("Hello" "World!")
@@ -22,7 +22,7 @@ Test2 Errors:
 > 	at SPP.main(SPP.java:51)
 -----
 Test3: FAIL
-The factorial function failed.
+;;;The factorial function failed.
 -----
 1,9d0
 < (begin

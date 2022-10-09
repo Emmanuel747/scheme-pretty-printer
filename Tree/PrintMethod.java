@@ -60,9 +60,9 @@ public class PrintMethod {
     }
 }
 
-  public static void printBoolLit(int num, boolean b) {
+  public static void printBoolLit(int num, boolean bool) {
     indent(num);
-    if (b) {
+    if (bool) {
         System.out.print("#t");
     }
     else {
@@ -70,5 +70,25 @@ public class PrintMethod {
     }
     terminate(num);
   }
+  public static void printIf(final Node node, final int a, final boolean b) {
+    if (!b) {
+        indent(a);
+        System.out.print("(if");
+        final Node cdr = node.getCdr();
+        if (cdr.isPair()) {
+            System.out.print(' ');
+            cdr.getCar().print(-(Math.abs(a) + TABsize), false);
+            System.out.println();
+            printTail(cdr, Math.abs(a) + TABsize);
+        }
+        else {
+            printTail(node, -(Math.abs(a) + TABsize));
+            System.out.println();
+        }
+    }
+    else {
+        printRegular(node, a, b);
+    }
+}
   
 }
