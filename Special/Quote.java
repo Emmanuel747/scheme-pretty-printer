@@ -6,6 +6,15 @@ import Tree.Node;
 
 public class Quote extends Special {
  
-    public void print(Node t, int n, boolean p) {
+    public Quote(){}
+
+    public void print(Node node, int num, boolean bool) {
+        System.out.println("'");
+		if (node.getCdr() == null){
+			System.out.println();
+        }
+		else{
+		    node.getCdr().print(0, false);
+        }
     }
 }
