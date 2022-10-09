@@ -7,5 +7,6 @@ import Tree.Node;
 public class Quote extends Special {
  
     public void print(Node t, int n, boolean p) {
+      System.out.println("Big buts");
     }
 }

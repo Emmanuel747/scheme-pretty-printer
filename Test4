@@ -1,0 +1,3 @@
+The factorial function failed.
+(define (fac n) (if (b= n 0) 1 (b* n (fac (b- n 1)))))
+(fac 5)

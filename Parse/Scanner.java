@@ -100,12 +100,17 @@ public class Scanner {
 			// Integer constants
 			else if (ch >= '0' && ch <= '9') {
         // TODO: scan the number and convert it to an integer
-				int i = ch - '0';
-        ch = in.read();
-				// Put the character after the integer back into the input
-        if (!(ch >= '0' && ch <= '9'))
-				  in.unread(ch);
-				return new IntToken(i);
+        int i = 0;
+        do {
+          buf[i] = (byte)ch;
+          ch = in.read();
+          i++;
+        } while (ch >= '0' && ch <= '9');
+        // Put the character after the integer back into the input
+        in.unread(ch);
+        String s = new String(buf).trim().toLowerCase();
+        buf = new byte[BUFSIZE];
+        return new IntToken(Integer.parseInt(s));
 			}
 
       // Identifiers
