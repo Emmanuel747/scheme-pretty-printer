@@ -1,3 +1,0 @@
-Exception in thread "main" java.lang.NullPointerException
-	at Tree.Cons.print(Cons.java:33)
-	at SPP.main(SPP.java:51)
