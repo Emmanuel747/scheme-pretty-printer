@@ -61,6 +61,10 @@ public class Node {
     // using parseList.
 
     // get name as well
+    public String getName(){
+        return null;
+    }
+    
     public Node getCar() {
         return null;
     }
