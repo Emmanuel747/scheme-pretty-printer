@@ -2,7 +2,7 @@
 
 package Tree;
 
-import Special.Special;
+import Special.*;
 
 public class Cons extends Node {
     private Node car;
@@ -25,11 +25,59 @@ public class Cons extends Node {
     // parsing up to the interpreter.
 
     void parseList() {
-    
+        String obj = new String("");
+        if(car.isSymbol()){
+            obj = car.getName();
+            if (obj.equalsIgnoreCase("begin")){
+                form = new Begin();
+            }
+            else if (obj.equalsIgnoreCase("define")){
+                form = new Define();
+            }
+            else if (obj.equalsIgnoreCase("quote")){
+                form = new Quote();
+            }
+            else if (obj.equalsIgnoreCase("cond")){
+                form = new Cond();
+            }
+            else if (obj.equalsIgnoreCase("if")){
+                form = new If();
+            }
+            else if (obj.equalsIgnoreCase("lambda")){
+                form = new Lambda();
+            }
+            else if (obj.equalsIgnoreCase("let")){
+                form = new Let();
+            }
+            else if (obj.equalsIgnoreCase("set!")){
+                form = new Set();
+            }
+            else {
+                form = new Regular();
+            }
+        }
+        else {
+            form = new Regular();
+        }
     }
 
     // TODO: Add any helper functions for parseList
     // to the class hierarchy as needed.
+    public boolean isPair() {
+        return true;
+    }
+    public void setCar(Node car){
+        this.car = car;
+        parseList();
+    }
+
+    public Node getCar(){
+        return this.car;
+    }
+
+    public Node getCdr(){
+        return this.cdr;
+    }
 
     public void print(int n) {
     }
