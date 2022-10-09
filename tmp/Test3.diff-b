@@ -1,0 +1,10 @@
+1,9d0
+< (begin
+<   (define (fac n)
+<     (if (b= n 0)
+<       1
+<       (b* n (fac (b- n 1)))
+<     )
+<   )
+<   (fac 5)
+< )

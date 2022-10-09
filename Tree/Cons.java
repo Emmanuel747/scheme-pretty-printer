@@ -23,6 +23,7 @@ public class Cons extends Node {
     // parseList only look at the car for selecting the appropriate
     // object from the Special hierarchy and to leave the rest of
     // parsing up to the interpreter.
+
     void parseList() {
         String obj = new String("");
         if(car.isSymbol()){
@@ -62,7 +63,6 @@ public class Cons extends Node {
 
     // TODO: Add any helper functions for parseList
     // to the class hierarchy as needed.
-
     public boolean isPair() {
         return true;
     }
@@ -80,10 +80,9 @@ public class Cons extends Node {
     }
 
     public void print(int n) {
-        form.print(this, n, false);
     }
 
     public void print(int n, boolean p) {
-        form.print(this, n, p);
     }
+
 }

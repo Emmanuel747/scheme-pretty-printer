@@ -2,21 +2,22 @@
 
 package Tree;
 
+import Tree.PrintMethod;
+
 public class BooleanLit extends Node {
     private boolean boolVal;
-
     private static BooleanLit trueInstance = new BooleanLit(true);
     private static BooleanLit falseInstance = new BooleanLit(false);
 
-    public BooleanLit(boolean b) {
-        boolVal = b;
+    private BooleanLit(boolean val) {
+        boolVal = val;
     }
 
     public static BooleanLit getInstance(boolean val) {
-        if (val)
-            return trueInstance;
-        else
-            return falseInstance;
+      if (val)
+          return trueInstance;
+      else
+          return falseInstance;
     }
 
     public void print(int n) {
@@ -29,9 +30,20 @@ public class BooleanLit extends Node {
         } else {
             System.out.println("#f");
         }
+        //makes a new line at the end of the printout for testcases
+        if (n >= 0) {
+          System.out.println();
+        }
     }
 
-    public boolean isBoolean() {
-        return true;
-    }
+    public void printBoolLit(int n) {
+      PrintMethod.indent(n);
+      if (boolVal) {
+          System.out.print("#t");
+      }
+      else {
+          System.out.print("#f");
+      }
+      PrintMethod.terminate(n);
+  }
 }
