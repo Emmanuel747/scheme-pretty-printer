@@ -38,7 +38,7 @@ public class Scanner {
 
 			// TODO: Skip white space and comments
       // Working state ~eman
-      while (ch > 0 && ch == 32 || ch == '9') {
+      if (ch > 0 && ch == 32 || ch == 9 || ch == '\t') {
         ch = in.read();
       }
       if (ch == ';' ) {
