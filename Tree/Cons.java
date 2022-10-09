@@ -24,15 +24,17 @@ public class Cons extends Node {
     // object from the Special hierarchy and to leave the rest of
     // parsing up to the interpreter.
 
+    void parseList() {
+    
+    }
+
     // TODO: Add any helper functions for parseList
     // to the class hierarchy as needed.
 
     public void print(int n) {
-        form.print(this, n, false);
     }
 
     public void print(int n, boolean p) {
-        form.print(this, n, p);
     }
 
 }
