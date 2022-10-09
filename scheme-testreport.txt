@@ -1,13 +1,6 @@
 Running tests:
 Test0.-d: SUCCESS
-Test1: FAIL
-;;;Printing the integer constant 42 failed.
------
-1c1
-< 42
----
-> 4
------
+Test1: SUCCESS
 Test2: FAIL
 ;;;Printing the list '("Hello" "World!") failed.
 -----
@@ -30,12 +23,27 @@ Test3: FAIL
 -----
 Test3 Errors:
 -----
-0a1,2
+0a1,17
 > Illegal input character ' '
 > Illegal input character ' '
+> Exception in thread "main" java.lang.NumberFormatException: For input string: "5ac"
+> 	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+> 	at java.base/java.lang.Integer.parseInt(Integer.java:652)
+> 	at java.base/java.lang.Integer.parseInt(Integer.java:770)
+> 	at Parse.Scanner.getNextToken(Scanner.java:113)
+> 	at Parse.Parser.parseRest(Parser.java:105)
+> 	at Parse.Parser.parseRest(Parser.java:88)
+> 	at Parse.Parser.parseExp(Parser.java:58)
+> 	at Parse.Parser.parseRest(Parser.java:100)
+> 	at Parse.Parser.parseRest(Parser.java:139)
+> 	at Parse.Parser.parseRest(Parser.java:139)
+> 	at Parse.Parser.parseRest(Parser.java:88)
+> 	at Parse.Parser.parseExp(Parser.java:58)
+> 	at Parse.Parser.parseExp(Parser.java:51)
+> 	at SPP.main(SPP.java:49)
 -----
 
-1 tests succeeded
+2 tests succeeded
 0 tests were formatted incorrectly
-3 tests failed
+2 tests failed
 1 tests had errors

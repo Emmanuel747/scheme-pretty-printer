@@ -4,5 +4,4 @@
 #the sample scheme input
 
 javac -g SPP.java */*.java
-java SPP
-
+java SPP -d

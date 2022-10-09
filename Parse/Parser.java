@@ -92,8 +92,7 @@ public class Parser {
     if (token == null) {
         System.err.println("end of file in list");
         return null;
-    }
-    if (token.getType() == TokenType.RPAREN) {
+    } else if (token.getType() == TokenType.RPAREN) {
         return Nil.getInstance();
     }
     
