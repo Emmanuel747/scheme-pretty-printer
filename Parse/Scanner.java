@@ -5,9 +5,6 @@ package Parse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 
 import Tokens.Token;
 import Tokens.TokenType;
@@ -38,7 +35,7 @@ public class Scanner {
 
 			// TODO: Skip white space and comments
       // Working state ~eman
-      while (ch > 0 && ch == 32 || ch == '9') {
+      if (ch > 0 && ch == 32 || ch == 9 || ch == '\t') {
         ch = in.read();
       }
       if (ch == ';' ) {
