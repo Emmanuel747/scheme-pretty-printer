@@ -47,9 +47,11 @@ public class Parser {
       scanner = s;
   }
 
-  public Node parseExp(Token token) {
+  public Node parseExp() {
+    return parseExp(scanner.getNextToken());
+  }
+  private Node parseExp(Token token) {
     // TODO: write code for parsing an exp
-    token = scanner.getNextToken();
     if (token == null){
         return null;
     } else if (token.getType() == TokenType.LPAREN) {
@@ -60,7 +62,7 @@ public class Parser {
     }
     else if (token.getType() == TokenType.QUOTE) {
       return new Cons(new Ident("quote"), 
-              new Cons(parseExp(), new Nil()));
+              new Cons(parseExp(), Nil.getInstance()));
     }
     else if (token.getType() == TokenType.TRUE) {
       return new BooleanLit(true);
@@ -76,72 +78,74 @@ public class Parser {
     }
     else if (token.getType() == TokenType.DOT) {
       System.err.print("parseExp() Error (illegal dot in expression)");
+      return parseExp();
     }  
     System.err.print("parseExp() Error");
     return null;
   }
 
-
-  private Node parseRest(Token token) {
-      // TODO: write code for parsing rest
-        if (token == null) {
-            System.err.println("end of file in list");
-            return null;
-        }
-        if (token.getType() == TokenType.RPAREN) {
-            return Nil.getInstance();
-        }
-        
-        Node exp = parseExp(token);
-        if (exp == null) {
-            System.err.println("reached the end");
-            return null;
-        }
-        token = scanner.getNextToken();
-        if (token == null) {
-            System.err.println("reached the end");
-            return null;
-        }
-        Node node;
-        if (token.getType() == TokenType.DOT) {
-            node = parseExp(token);
-            if (node == null) {
-                System.err.println("reached the end");
-                return null;
-            }
-            token = scanner.getNextToken();
-            if (token == null) {
-                System.err.println("reached the end");
-                return null;
-            }
-            if (token.getType() != TokenType.RPAREN) {
-                System.err.println("No closing parenthesis after expression!");
-                node.print(2);
-                System.err.println("ignoring input until closing parenthesis...");
-            }
-
-            while (token != null && token.getType() != TokenType.RPAREN) {
-                if (parseExp(token) == null) {
-                  return null;
-                }
-                token = scanner.getNextToken();
-            }
-            if (token == null) {
-              return null;
-            }
-        }
-        else {
-            node = parseRest(token);
-            if (node == null) {
-                return null;
-            }
-        }
-        return new Cons(exp, node);
-  }
-  
   protected Node parseRest() {
     return parseRest(scanner.getNextToken());
   }
+  private Node parseRest(Token token) {
+    // TODO: write code for parsing rest
+    if (token == null) {
+        System.err.println("end of file in list");
+        return null;
+    }
+    if (token.getType() == TokenType.RPAREN) {
+        return Nil.getInstance();
+    }
+    
+    Node exp = parseExp(token);
+    if (exp == null) {
+      System.err.println("reached the end");
+      return null;
+    }
+    token = scanner.getNextToken();
+    if (token == null) {
+      System.err.println("reached the end");
+      return null;
+    }
+    Node node;
+    if (token.getType() == TokenType.DOT) {
+      node = parseExp(token);
+      if (node == null) {
+          System.err.println("reached the end");
+          return null;
+      }
+      token = scanner.getNextToken();
+      if (token == null) {
+          System.err.println("reached the end");
+          return null;
+      }
+      if (token.getType() != TokenType.RPAREN) {
+          System.err.println("No closing parenthesis after expression!");
+          node.print(2);
+          System.err.println("ignoring input until closing parenthesis...");
+      }
+
+      while (token != null && token.getType() != TokenType.RPAREN) {
+          if (parseExp(token) == null) {
+            return null;
+          }
+          token = scanner.getNextToken();
+      }
+      if (token == null) {
+        return null;
+      }
+    }
+    else {
+        node = parseRest(token);
+        if (node == null) {
+            return null;
+        }
+    }
+    return new Cons(exp, node);
+  }
+  
+
+
   // backup code
   // private Node parseRest(Token token){
   //   if (token.getType() == TokenType.RPAREN)
